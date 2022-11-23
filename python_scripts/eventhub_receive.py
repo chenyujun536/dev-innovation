@@ -2,8 +2,8 @@ import asyncio
 from azure.eventhub.aio import EventHubConsumerClient
 from azure.eventhub.extensions.checkpointstoreblobaio import BlobCheckpointStore
 
-blob_storage_conn_key = "JAzse5Ng0U8c3u6+9akYe8HhkcZ0esdYP/2TELHD634MNk8HKNI9dOtBGOh5EjN1pro95OqOVg/1+AStLsPsog=="
-blob_storage_conn_str = "DefaultEndpointsProtocol=https;AccountName=ychen32san;AccountKey=JAzse5Ng0U8c3u6+9akYe8HhkcZ0esdYP/2TELHD634MNk8HKNI9dOtBGOh5EjN1pro95OqOVg/1+AStLsPsog==;EndpointSuffix=core.windows.net"
+blob_storage_conn_key = "fake_key_1"
+blob_storage_conn_str = "DefaultEndpointsProtocol=https;AccountName=ychen32san;AccountKey=fake_key1;EndpointSuffix=core.windows.net"
 blob_storage_container_name = "ychen32-storage"
 event_hub_receiv_conn_str = "Endpoint=sb://ychen32-ehub.servicebus.windows.net/;SharedAccessKeyName=ReceiveFromMyEHub;SharedAccessKey=A1R+s4fW+4SX2BqUvh8DcdhsvmEuZBadky2jVO5aO4w=;EntityPath=myeventhub"
 event_hub_name = "myeventhub"
