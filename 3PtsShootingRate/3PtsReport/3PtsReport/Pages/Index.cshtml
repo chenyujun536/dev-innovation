@@ -1,0 +1,115 @@
+﻿@page "{handler?}"
+@using _3PtsReport.Services
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h1 class="display-6">老陈的3分球报告</h1>
+    <p>截至到 @DateTime.Now</p>
+    
+    <form method="post" enctype="multipart/form-data">
+        <input type="file" asp-for="UploadFile" />
+        <input type="submit" />
+    </form>
+    
+    <!--Load the AJAX API-->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+        
+        function drawChart() {
+            var data = new google.visualization.arrayToDataTable([
+                ['dates', 'shots', 'hitrate'],
+                @foreach (var record in Model.Records)
+                {
+                    <text>['@record.ExerciseDate.ToShortDateString()', @record.TryCount, @record.HitRate],</text>
+                }
+            ]);
+
+            // Set chart options
+            var options = {
+                title: '3分球命中率统计@@'+@Model.FileName,
+                curveType:'function',
+                pointsVisible:true,
+                lineWidth:3,
+                legend:{position: 'top', textStyle: {color: 'blue', fontSize: 16}},
+                hAxis:{title:'dates'},
+                vAxis:{title:'hitrate (%)'},
+                seriesType: 'line',
+                series:{0: {type:'bars', targetAxisIndex:1}},
+                vAxes: {
+                    1: {
+                        title:'shots',
+                        textStyle:{color:'brown'}
+                    }
+                },
+                width:'100%',
+                height:'100%',
+                chartArea:{width:'85%', height:'75%'}
+            };
+
+            // Instantiate and draw our chart, passing in some options.
+            var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
+            chart.draw(data, options);
+        }
+    </script>
+    
+    <div class="container-fluid lead">
+        <div id="chart_div" style="width: 1200px; height:600px"></div>
+    </div>
+
+    <table class="table mt-5">
+        <thead>
+        <tr>
+            <th scope="col">Overall</th>
+            <th scope="col">Shot Count</th>
+            <th scope="col">Hit Count</th>
+            <th scope="col">Hit Rate(%)</th>
+            <th scope="col">Details</th>
+        </tr>
+        </thead>
+        <tr>
+            <td>@Model.Records.Count 次</td>
+            <td>@Model.Summary.TryCount</td>
+            <td>@Model.Summary.HitCount</td>
+            <td>@Model.Summary.HitRate.ToString("F2")</td>
+            <td>
+                <form method="post">
+                    <button type="submit" asp-page-handler="OneItemDetails">Details</button>
+                    <input type="hidden" name="recordText" value=@Model.Summary.EncodeToHtml() />
+                </form>
+            </td>
+        </tr>
+    </table>
+    
+    <table class="table mt-5">
+        <thead>
+        <tr>
+            <th scope="col">Date</th>
+            <th scope="col">Shot Count</th>
+            <th scope="col">Hit Count</th>
+            <th scope="col">Hit Rate(%)</th>
+            <th scope="col">Details</th>
+        </tr>
+        </thead>
+        @foreach (var record in Model.Records)
+        {
+            <tr>
+                <td>@record.ExerciseDate.ToShortDateString()</td>
+                <td>@record.TryCount</td>
+                <td>@record.HitCount</td>
+                <td>@record.HitRate.ToString("F2")</td>
+                <td>
+                    <form method="post">
+                        <button type="submit" asp-page-handler="OneItemDetails">Details</button>
+                        <input type="hidden" name="recordText" value=@record.EncodeToHtml() />
+                    </form>
+                </td>
+            </tr>
+        }
+    </table>
+
+</div>
