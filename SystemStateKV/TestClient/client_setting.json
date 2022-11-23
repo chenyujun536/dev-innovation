@@ -1,0 +1,14 @@
+{
+    "test_svr": "MaxwellChannelZeroMqRPCServer.exe",
+    "test_app": "MaxwellChannelZeroMqRPCClient.exe",
+    "test_folder":  "ExeDir_Zmq", 
+    "svr_no_argument": false,
+    "test_count": 1,
+    "test_case_interval": 0,
+    "channel_count": 1,
+    "value_size": 1,
+    "value_stream_count": 100000,
+    "value_publish_interval": 0,
+    "wait_server": 5,
+    "wait_client": 1
+}

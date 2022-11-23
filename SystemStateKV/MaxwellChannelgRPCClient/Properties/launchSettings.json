@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "MaxwellChannelgRPCClient": {
+      "commandName": "Project",
+      "commandLineArgs": "-vs=25000000 -sc=1"
+    }
+  }
+}
