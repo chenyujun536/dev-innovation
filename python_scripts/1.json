@@ -1,0 +1,31 @@
+{
+    "version_history": [
+        {
+            "framework_library_version": "1.0.0",
+            "description": "add xxx API to support xxx feature",
+            "maxwell_build": 215439,
+            "maxwell_branch": "12.x/12.0.RC",
+            "is_current": false
+        },
+        {
+            "framework_library_version": "3.1.0",
+            "description": "add xxx API to support xxx feature",
+            "maxwell_build": 225678,
+            "maxwell_branch": "12.1/mandatory_hotfix_patch",
+            "is_current": true
+        }
+    ],
+    "data_source": "maxwell",
+    "data_sink":"maxwell",
+    "computation_engines":
+    [
+        {
+            "service_id": "mrt.one-click.rm.processing",
+            "version": "1.0"
+        },
+        {
+            "service_id": "tlm.ha",
+            "version": "1.0"
+        }
+    ]
+}
